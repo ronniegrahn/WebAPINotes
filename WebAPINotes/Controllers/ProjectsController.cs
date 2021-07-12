@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Models;
+using DataStore.EF;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,45 +13,85 @@ namespace WebAPIprojects.Controllers
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
     {
+        private readonly NotesContext db;
+        public ProjectsController(NotesContext db)
+        {
+            this.db = db;
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("Reading all the projects.");
+
+            return Ok(db.Projects.ToList());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id) //GetById ??
         {
-            return Ok($"Reading project #{id}.");
+            var project = db.Projects.Find(id);
+            if (project == null)
+                return NotFound();
+
+            return Ok(project);
         }
 
         [HttpGet]
         [Route("/api/projects/{pid}/notes")]
-        public IActionResult GetProjectNote(int pId, [FromQuery] int nId)
+        public IActionResult GetProjectNotes(int pId)
         {
-            if(nId == 0)
-            {
-                return Ok($"Reading all the notes belonging to project #{pId}.");
-            }
-            return Ok($"Reading project #{pId}, note #{nId}.");
+            var notes = db.Notes.Where(n => n.ProjectId == pId).ToList();
+            if (notes == null || notes.Count <= 0)
+                return NotFound();
+
+            return Ok(notes);
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post([FromBody]Project project)
         {
-            return Ok("Creating a new project.");
+            db.Projects.Add(project);
+            db.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById),
+                    new { id = project.ProjectId },
+                    project
+                );
         }
 
-        [HttpPut]
-        public IActionResult Put()
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Project project)
         {
-            return Ok("Updating a project.");
+            if (id != project.ProjectId) return BadRequest();
+
+            db.Entry(project).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                if (db.Projects.Find(id) == null)
+                    return NotFound();
+
+                throw;
+            }
+            
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            return Ok($"Deleting project #{id}.");
+            var project = db.Projects.Find(id);
+            if (project == null) return NotFound();
+
+            db.Projects.Remove(project);
+            db.SaveChanges();
+
+            return Ok(project);
         }
     }
 }
