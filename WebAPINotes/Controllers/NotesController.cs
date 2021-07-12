@@ -3,6 +3,7 @@ using DataStore.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAPIprojects.Controllers
 {
@@ -17,15 +18,15 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(db.Notes.ToList());
+            return Ok(await db.Notes.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var note = db.Notes.Find(id);
+            var note = await db.Notes.FindAsync(id);
             if (note == null)
                 return NotFound();
 
@@ -33,10 +34,10 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Note note)
+        public async Task<IActionResult> Post([FromBody] Note note)
         {
             db.Notes.Add(note);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById),
                     new { id = note.NoteId },
@@ -45,7 +46,7 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Note note)
+        public async Task<IActionResult> Put(int id, [FromBody] Note note)
         {
             if (id != note.NoteId) return BadRequest();
 
@@ -53,7 +54,7 @@ namespace WebAPIprojects.Controllers
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (System.Exception)
             {
@@ -66,13 +67,13 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var note = db.Notes.Find(id);
+            var note = await db.Notes.FindAsync(id);
             if (note == null) return NotFound();
 
             db.Notes.Remove(note);
-            db.SaveChanges();
+            await db .SaveChangesAsync();
 
             return Ok(note);
         }
