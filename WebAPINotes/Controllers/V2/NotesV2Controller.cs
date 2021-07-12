@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPINotes.Filters.V2;
 
 namespace WebAPIprojects.Controllers
-{
-    [ApiVersion("1.0")]
+{ 
+    [ApiVersion("2.0")]
     [ApiController]
-    [Route("api/[controller]")]
-    public class NotesController : ControllerBase
+    [Route("api/notes")]
+    public class NotesV2Controller : ControllerBase
     {
         private readonly NotesContext db;
-        public NotesController(NotesContext db)
+        public NotesV2Controller(NotesContext db)
         {
             this.db = db;
         }
@@ -35,6 +36,7 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpPost]
+        [Note_EnsureDescriptionPresent]
         public async Task<IActionResult> Post([FromBody] Note note)
         {
             db.Notes.Add(note);
@@ -47,6 +49,7 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpPut("{id}")]
+        [Note_EnsureDescriptionPresent]
         public async Task<IActionResult> Put(int id, [FromBody] Note note)
         {
             if (id != note.NoteId) return BadRequest();

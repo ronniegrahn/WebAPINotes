@@ -27,6 +27,13 @@ namespace Core.Models
         [Note_EnsureDueDateAfterReportDate]
         [Note_EnsureFutureDueDateOnCreation]
         public DateTime? DueDate { get; set; }
+
+        public Project Project { get; set; }
+
+        public bool ValidateDescription()
+        {
+            return !string.IsNullOrWhiteSpace(Description);
+        }
         
 
         public bool ValidateFutureDueDate()

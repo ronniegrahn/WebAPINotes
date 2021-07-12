@@ -17,7 +17,9 @@ namespace DataStore.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>()
-                .HasMany(p => p.Notes);
+                .HasMany(p => p.Notes)
+                .WithOne(n => n.Project)
+                .HasForeignKey(p => p.ProjectId);
 
             modelBuilder.Entity<Project>().HasData(
                     new Project { ProjectId = 1, Name = "Project 1" },
