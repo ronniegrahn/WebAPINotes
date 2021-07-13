@@ -24,6 +24,7 @@ namespace WebApp
 
             builder.Services.AddTransient<IProjectScreenUseCases, ProjectScreenUseCases>();
             builder.Services.AddTransient<IProjectRepository, ProjectRepository>();
+            builder.Services.AddTransient<INoteRepository, NoteRepository>();
             builder.Services.AddTransient<INotesScreenUseCases, NotesScreenUseCases>();
 
 
