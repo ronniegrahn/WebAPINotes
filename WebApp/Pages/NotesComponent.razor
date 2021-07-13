@@ -1,0 +1,45 @@
+﻿@page "/projects/{projectId:int}/notes"
+
+@inject INotesScreenUseCases NotesScreenUseCases
+
+<h3>Notes</h3>
+
+@if(notes != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Create Date</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in notes)
+            {
+            <tr>
+                <td>@note.Title</td>
+                <td>@note.Owner</td>
+                <td>@(note.ReportDate.HasValue?note.ReportDate.Value.ToString("yyyy-MM-dd"):string.Empty)</td>
+                <td>@(note.DueDate.HasValue?note.DueDate.Value.ToString("yyyy-MM-dd"):string.Empty)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+        
+   
+}
+
+@code {
+
+    IEnumerable<Note> notes;
+
+    [Parameter]
+    public int ProjectId { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        notes = await NotesScreenUseCases.ViewNotes(ProjectId);
+    }
+}
