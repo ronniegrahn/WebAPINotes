@@ -8,31 +8,65 @@ using System.Threading.Tasks;
 HttpClient httpClient = new();
 IWebApiExecuter apiExecuter = new WebApiExecuter("https://localhost:44377", httpClient);
 
-Console.WriteLine("---------------------------");
-Console.WriteLine("Reading projects...");
-await GetProjects();
 
-Console.WriteLine("---------------------------");
-Console.WriteLine("Reading project notes...");
-await GetProjectNotes(1);
+await TestNotes();
 
-Console.WriteLine("---------------------------");
-Console.WriteLine("Creating new project...");
-var pId = await CreateProject();
-await GetProjects();
+async Task TestNotes()
+{
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Reading notes...");
+    await GetNotes();
 
-Console.WriteLine("---------------------------");
-Console.WriteLine("Update project...");
-var project = await GetProject(pId);
-await UpdateProject(project);
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Reading note 1...");
+    await GetNotes("1");
 
-await GetProjects();
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Create a note...");
+    var tId = await CreateNote();
+    await GetNotes();
 
-Console.WriteLine("---------------------------");
-Console.WriteLine("Delete a project...");
-await DeleteProject(pId);
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Updating note...");
+    var note = await GetNoteById(tId);
+    await UpdateNote(note);
+    await GetNotes();
 
-await GetProjects();
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Deleting a note...");
+    await DeleteNote(tId);
+    await GetNotes();
+
+}
+
+async Task TestProjects()
+{
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Reading projects...");
+    await GetProjects();
+
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Reading project notes...");
+    await GetProjectNotes(1);
+
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Creating new project...");
+    var pId = await CreateProject();
+    await GetProjects();
+
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Update project...");
+    var project = await GetProject(pId);
+    await UpdateProject(project);
+
+    await GetProjects();
+
+    Console.WriteLine("---------------------------");
+    Console.WriteLine("Delete a project...");
+    await DeleteProject(pId);
+
+    await GetProjects();
+}
 
 async Task GetProjects()
 {
@@ -83,4 +117,40 @@ async Task DeleteProject(int id)
 {
     ProjectRepository repository = new(apiExecuter);
     await repository.DeleteAsync(id);
+}
+
+async Task GetNotes(string filter = null)
+{
+    NoteRepository noteRepository = new(apiExecuter);
+    var notes = await noteRepository.GetAsync(filter);
+    foreach (var note in notes)
+    {
+        Console.WriteLine($"Note: {note.Title}");
+    }
+}
+
+async Task<Note> GetNoteById(int id)
+{
+    NoteRepository noteRepository = new(apiExecuter);
+    var note = await noteRepository.GetByIdAsync(id);
+    return note;
+}
+
+async Task<int> CreateNote()
+{
+    NoteRepository noteRepository = new(apiExecuter);
+    return await noteRepository.CreateAsync(new Note { ProjectId = 2, Title = "This is a test note!", Description = "Testing testing." });
+}
+
+async Task UpdateNote(Note note)
+{
+    NoteRepository noteRepository = new NoteRepository(apiExecuter);
+    note.Title += " Updated!";
+    await noteRepository.UpdateAsync(note);
+}
+
+async Task DeleteNote(int id)
+{
+    NoteRepository noteRepository = new(apiExecuter);
+    await noteRepository.DeleteAsync(id);
 }

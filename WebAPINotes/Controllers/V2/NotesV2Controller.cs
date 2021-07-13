@@ -31,12 +31,10 @@ namespace WebAPIprojects.Controllers
                 if (noteQueryFilter.Id.HasValue)
                     notes = notes.Where(x => x.NoteId == noteQueryFilter.Id);
 
-                if (!string.IsNullOrWhiteSpace(noteQueryFilter.Title))
-                    notes = notes.Where(x => x.Title.Contains(noteQueryFilter.Title,
-                        StringComparison.OrdinalIgnoreCase));
-
-                if (!string.IsNullOrWhiteSpace(noteQueryFilter.Description))
-                    notes = notes.Where(x => x.Description.Contains(noteQueryFilter.Description,
+                if (!string.IsNullOrWhiteSpace(noteQueryFilter.TitleOrDescription))
+                    notes = notes.Where(x => x.Title.Contains(noteQueryFilter.TitleOrDescription,
+                        StringComparison.OrdinalIgnoreCase) ||
+                        x.Description.Contains(noteQueryFilter.TitleOrDescription,
                         StringComparison.OrdinalIgnoreCase));
             }
 
