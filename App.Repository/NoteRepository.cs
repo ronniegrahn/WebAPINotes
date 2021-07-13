@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace App.Repository
 {
-    public class NoteRepository
+    public class NoteRepository : INoteRepository
     {
         private readonly IWebApiExecuter webApiExecutor;
 
