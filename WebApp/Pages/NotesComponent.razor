@@ -12,6 +12,12 @@
     <div class="col-auto">
         <button class="btn btn-light" @onclick="OnSearch">Search</button>
     </div>
+    <div class="col-auto">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="mynotes" @bind-value="ViewMyNotes"/>
+            <label class="form-check-label" for="mynotes">View My Notes</label>
+        </div>
+    </div>
 </div>
 
 <br />
@@ -42,9 +48,33 @@
 
     IEnumerable<Note> notes;
     string searchFilter;
-
+    
     [Parameter]
     public int ProjectId { get; set; }
+
+    bool viewMyNotes = false;
+    public bool ViewMyNotes
+    {
+        get => viewMyNotes;
+        set
+        {
+            viewMyNotes = value;
+
+            Task.Run(async () =>
+            {
+                if (viewMyNotes)
+                    notes = await NotesScreenUseCases.ViewOwnersNotes(ProjectId, "Ronnie Grahn");
+                else
+                    notes = await NotesScreenUseCases.ViewNotes(ProjectId);
+
+                StateHasChanged();
+            });
+
+
+        }
+    }
+
+
 
     protected override async Task OnParametersSetAsync()
     {

@@ -36,5 +36,10 @@ namespace MyApp.ApplicationLogic
 
             return await noteRepository.GetAsync(filter);
         }
+
+        public async Task<IEnumerable<Note>> ViewOwnersNotes(int projectId, string ownerName)
+        {
+            return await projectRepository.GetProjectNotesAsync(projectId, ownerName);
+        }
     }
 }

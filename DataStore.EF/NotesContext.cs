@@ -27,9 +27,45 @@ namespace DataStore.EF
                 );
 
             modelBuilder.Entity<Note>().HasData(
-                    new Note { NoteId = 1, Title = "Hello World!", ProjectId = 1, Owner = "Ronnie Grahn", ReportDate = new DateTime(2021, 3, 1), DueDate = new DateTime(2021, 3, 8) },
-                    new Note { NoteId = 2, Title = "Second note.", ProjectId = 1, Owner = "Ronnie Grahn", ReportDate = new DateTime(2021, 3, 7), DueDate = new DateTime(2021, 3, 20) },
-                    new Note { NoteId = 3, Title = "Second note.", ProjectId = 2, Owner = "Ronnie Grahn", ReportDate = new DateTime(2021, 3, 10), DueDate = new DateTime(2021, 3, 20) }
+                    new Note {
+                        NoteId = 1, 
+                        Title = "Hello World!", 
+                        ProjectId = 1, 
+                        Owner = "Ronnie Grahn", 
+                        ReportDate = new DateTime(2021, 3, 1), 
+                        DueDate = new DateTime(2021, 3, 8) },
+                    new Note { 
+                        NoteId = 2, 
+                        Title = "Second note.", 
+                        ProjectId = 1, 
+                        Owner = "Ronnie Grahn", 
+                        ReportDate = new DateTime(2021, 3, 7), 
+                        DueDate = new DateTime(2021, 3, 20) },
+                    new Note
+                    {
+                        NoteId = 3,
+                        Title = "Second note.",
+                        ProjectId = 1,
+                        Owner = "Jane Doe",
+                        ReportDate = new DateTime(2021, 3, 7),
+                        DueDate = new DateTime(2021, 3, 20)
+                    },
+                    new Note
+                    {
+                        NoteId = 4,
+                        Title = "Second note.",
+                        ProjectId = 1,
+                        Owner = "Ronnie Grahn",
+                        ReportDate = new DateTime(2021, 3, 7),
+                        DueDate = new DateTime(2021, 3, 20)
+                    },
+                    new Note { 
+                        NoteId = 5, 
+                        Title = "Third note.", 
+                        ProjectId = 2, 
+                        Owner = "John Doe", 
+                        ReportDate = new DateTime(2021, 3, 10), 
+                        DueDate = new DateTime(2021, 3, 20) }
                 );
         }
     }

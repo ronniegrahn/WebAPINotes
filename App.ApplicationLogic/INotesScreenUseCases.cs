@@ -8,5 +8,6 @@ namespace MyApp.ApplicationLogic
     {
         Task<IEnumerable<Note>> SearchNotes(string filter);
         Task<IEnumerable<Note>> ViewNotes(int projectId);
+        Task<IEnumerable<Note>> ViewOwnersNotes(int projectId, string ownerName);
     }
 }

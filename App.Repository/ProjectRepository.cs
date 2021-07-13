@@ -27,8 +27,14 @@ namespace MyApp.Repository
             return await webApiExecuter.InvokeGet<Project>($"api/projects/{id}");
         }
 
-        public async Task<IEnumerable<Note>> GetProjectNotesAsync(int projectId)
+        public async Task<IEnumerable<Note>> GetProjectNotesAsync(int projectId, string filter = null)
         {
+            string uri = $"api/projects/{projectId}/notes";
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                uri += $"?owner={filter}&api-version=2.0";
+            }
+
             return await webApiExecuter.InvokeGet<IEnumerable<Note>>($"api/projects/{projectId}/notes");
         }
 

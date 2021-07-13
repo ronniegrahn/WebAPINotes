@@ -10,7 +10,7 @@ namespace MyApp.Repository
         Task DeleteAsync(int id);
         Task<IEnumerable<Project>> GetAsync();
         Task<Project> GetByIdAsync(int id);
-        Task<IEnumerable<Note>> GetProjectNotesAsync(int projectId);
+        Task<IEnumerable<Note>> GetProjectNotesAsync(int projectId, string filter = null);
         Task UpdateAsync(Project project);
     }
 }
