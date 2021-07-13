@@ -2,9 +2,11 @@
 using DataStore.EF;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPINotes.Filters.V2;
+using WebAPINotes.QueryFilters;
 
 namespace WebAPIprojects.Controllers
 { 
@@ -20,9 +22,25 @@ namespace WebAPIprojects.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] NoteQueryFilter noteQueryFilter)
         {
-            return Ok(await db.Notes.ToListAsync());
+            IQueryable<Note> notes = db.Notes;
+            
+            if(noteQueryFilter != null)
+            {
+                if (noteQueryFilter.Id.HasValue)
+                    notes = notes.Where(x => x.NoteId == noteQueryFilter.Id);
+
+                if (!string.IsNullOrWhiteSpace(noteQueryFilter.Title))
+                    notes = notes.Where(x => x.Title.Contains(noteQueryFilter.Title,
+                        StringComparison.OrdinalIgnoreCase));
+
+                if (!string.IsNullOrWhiteSpace(noteQueryFilter.Description))
+                    notes = notes.Where(x => x.Description.Contains(noteQueryFilter.Description,
+                        StringComparison.OrdinalIgnoreCase));
+            }
+
+            return Ok(await notes.ToListAsync());
         }
 
         [HttpGet("{id}")]

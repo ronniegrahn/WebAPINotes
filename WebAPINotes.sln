@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStore.EF", "DataStore.EF\DataStore.EF.csproj", "{F6D9CEBD-94B9-47EE-AD91-587B4D280DEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Repository", "App.Repository\App.Repository.csproj", "{8204E653-C2E9-40E7-A104-11C9357F5C12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Testing.Console", "App.Testing.Console\App.Testing.Console.csproj", "{13FA88EB-E019-49B0-BFC6-C250E896AB1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{F6D9CEBD-94B9-47EE-AD91-587B4D280DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6D9CEBD-94B9-47EE-AD91-587B4D280DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6D9CEBD-94B9-47EE-AD91-587B4D280DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8204E653-C2E9-40E7-A104-11C9357F5C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8204E653-C2E9-40E7-A104-11C9357F5C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8204E653-C2E9-40E7-A104-11C9357F5C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8204E653-C2E9-40E7-A104-11C9357F5C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13FA88EB-E019-49B0-BFC6-C250E896AB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FA88EB-E019-49B0-BFC6-C250E896AB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FA88EB-E019-49B0-BFC6-C250E896AB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FA88EB-E019-49B0-BFC6-C250E896AB1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
