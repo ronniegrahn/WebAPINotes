@@ -19,7 +19,7 @@ async Task TestNotes()
 
     Console.WriteLine("---------------------------");
     Console.WriteLine("Reading note 1...");
-    await GetNotes("1");
+    await GetNoteById(1);
 
     Console.WriteLine("---------------------------");
     Console.WriteLine("Create a note...");

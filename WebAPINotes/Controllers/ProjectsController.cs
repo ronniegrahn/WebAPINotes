@@ -11,7 +11,7 @@ namespace WebAPIprojects.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/projects")]
     public class ProjectsController : ControllerBase
     {
         private readonly NotesContext db;

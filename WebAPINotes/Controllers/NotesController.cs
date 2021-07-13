@@ -9,7 +9,7 @@ namespace WebAPIprojects.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/notes")] //Remove [controller] and add: notes
     public class NotesController : ControllerBase
     {
         private readonly NotesContext db;
