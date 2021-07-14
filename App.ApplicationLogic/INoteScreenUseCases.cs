@@ -6,5 +6,6 @@ namespace MyApp.ApplicationLogic
     public interface INoteScreenUseCases
     {
         Task<int> AddNote(Note note);
+        Task DeleteNote(int noteId);
     }
 }

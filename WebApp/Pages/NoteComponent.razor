@@ -12,33 +12,35 @@
 
 @if (note != null)
 {
-    <EditForm Model="note" OnValidSubmit="Save">
-        <DataAnnotationsValidator></DataAnnotationsValidator>
-        <ValidationSummary></ValidationSummary>
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <InputText class="form-control" id="title" @bind-Value="note.Title"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <InputText class="form-control" id="description" @bind-Value="note.Description"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="owner" class="form-label">Owner</label>
-            <InputText class="form-control" id="owner" @bind-Value="note.Owner"></InputText>
-        </div>
-        <div class="mb-3">
-            <label for="reportdate" class="form-label">Report Date</label>
-            <InputDate class="form-control" id="reportdate" @bind-Value="note.ReportDate"></InputDate>
-        </div>
-        <div class="mb-3">
-            <label for="duedate" class="form-label">Due Date</label>
-            <InputDate class="form-control" id="duedate" @bind-Value="note.DueDate"></InputDate>
-        </div>
+<EditForm Model="note" OnValidSubmit="Save">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <InputText class="form-control" id="title" @bind-Value="note.Title"></InputText>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <InputText class="form-control" id="description" @bind-Value="note.Description"></InputText>
+    </div>
+    <div class="mb-3">
+        <label for="owner" class="form-label">Owner</label>
+        <InputText class="form-control" id="owner" @bind-Value="note.Owner"></InputText>
+    </div>
+    <div class="mb-3">
+        <label for="reportdate" class="form-label">Report Date</label>
+        <InputDate class="form-control" id="reportdate" @bind-Value="note.ReportDate"></InputDate>
+    </div>
+    <div class="mb-3">
+        <label for="duedate" class="form-label">Due Date</label>
+        <InputDate class="form-control" id="duedate" @bind-Value="note.DueDate"></InputDate>
+    </div>
 
-        <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-primary" type="submit">Save</button>
+    &nbsp;
+    <button class="btn btn-danger" type="button" @onclick="DeleteNote">Delete</button>
 
-    </EditForm>
+</EditForm>
 }
 
 
@@ -112,5 +114,14 @@
         }
 
 
+    }
+
+    private async Task DeleteNote()
+    {
+        if (!NoteId.HasValue) return;
+
+        await NoteScreenUseCases.DeleteNote(NoteId.Value);
+
+        NavigationManager.NavigateTo($"/projects/{note.ProjectId}/notes");
     }
 }

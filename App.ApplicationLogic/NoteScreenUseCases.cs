@@ -21,5 +21,10 @@ namespace MyApp.ApplicationLogic
         {
             return await this.noteRepository.CreateAsync(note);
         }
+
+        public async Task DeleteNote(int noteId)
+        {
+            await this.noteRepository.DeleteAsync(noteId);
+        }
     }
 }
