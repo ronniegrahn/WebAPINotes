@@ -41,5 +41,15 @@ namespace MyApp.ApplicationLogic
         {
             return await projectRepository.GetProjectNotesAsync(projectId, ownerName);
         }
+
+        public async Task<Note> ViewNoteById(int noteId)
+        {
+            return await noteRepository.GetByIdAsync(noteId);
+        }
+
+        public async Task UpdateNote(Note note)
+        {
+            await noteRepository.UpdateAsync(note);
+        }
     }
 }

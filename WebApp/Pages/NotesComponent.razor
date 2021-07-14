@@ -1,5 +1,6 @@
 ﻿@page "/projects/{projectId:int}/notes"
 
+@inject NavigationManager NavigationManager
 @inject INotesScreenUseCases NotesScreenUseCases
 
 <h3>Notes</h3>
@@ -40,7 +41,7 @@
             }
         </tbody>
     </table>
-
+    <button class="btn btn-primary" @onclick="AddNote">Add Note</button>
 
 }
 
@@ -48,7 +49,7 @@
 
     IEnumerable<Note> notes;
     string searchFilter;
-    
+
     [Parameter]
     public int ProjectId { get; set; }
 
@@ -84,5 +85,10 @@
     private async Task OnSearch()
     {
         notes = await NotesScreenUseCases.SearchNotes(searchFilter);
+    }
+
+    private void AddNote()
+    {
+        NavigationManager.NavigateTo($"/projects/{ProjectId}/addnote");
     }
 }

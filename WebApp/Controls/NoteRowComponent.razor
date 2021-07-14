@@ -2,7 +2,12 @@
 @if(Note != null)
 {
     <tr>
-        <td>@Note.Title</td>
+        <td>
+            <NavLink href="@($"/notes/{Note.NoteId}")">
+                @Note.Title
+            </NavLink>
+            
+        </td>
         <td>@Note.Owner</td>
         <td>@(Note.ReportDate.HasValue?Note.ReportDate.Value.ToString("yyyy-MM-dd"):string.Empty)</td>
         <td>@(Note.DueDate.HasValue?Note.DueDate.Value.ToString("yyyy-MM-dd"):string.Empty)</td>

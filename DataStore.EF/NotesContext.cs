@@ -29,14 +29,16 @@ namespace DataStore.EF
             modelBuilder.Entity<Note>().HasData(
                     new Note {
                         NoteId = 1, 
-                        Title = "Hello World!", 
+                        Title = "Hello World!",
+                        Description = "It's Alive!!!",
                         ProjectId = 1, 
                         Owner = "Ronnie Grahn", 
                         ReportDate = new DateTime(2021, 3, 1), 
                         DueDate = new DateTime(2021, 3, 8) },
                     new Note { 
                         NoteId = 2, 
-                        Title = "Second note.", 
+                        Title = "Second note.",
+                        Description = "Some kind of description.",
                         ProjectId = 1, 
                         Owner = "Ronnie Grahn", 
                         ReportDate = new DateTime(2021, 3, 7), 
@@ -44,7 +46,8 @@ namespace DataStore.EF
                     new Note
                     {
                         NoteId = 3,
-                        Title = "Second note.",
+                        Title = "Third note.",
+                        Description = "Blabla bla.",
                         ProjectId = 1,
                         Owner = "Jane Doe",
                         ReportDate = new DateTime(2021, 3, 7),
@@ -53,7 +56,8 @@ namespace DataStore.EF
                     new Note
                     {
                         NoteId = 4,
-                        Title = "Second note.",
+                        Title = "4:th note.",
+                        Description = "Lorem lipsum.",
                         ProjectId = 1,
                         Owner = "Ronnie Grahn",
                         ReportDate = new DateTime(2021, 3, 7),
@@ -61,7 +65,8 @@ namespace DataStore.EF
                     },
                     new Note { 
                         NoteId = 5, 
-                        Title = "Third note.", 
+                        Title = "Third note.",
+                        Description = "Some kind of description.",
                         ProjectId = 2, 
                         Owner = "John Doe", 
                         ReportDate = new DateTime(2021, 3, 10), 
